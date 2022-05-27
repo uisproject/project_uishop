@@ -7,9 +7,7 @@ const Product = ({ _id, image, name, rating, numReviews, price }) => {
   return (
     <Card>
       <Link to={`/product/${_id}`}>
-        <a href={`/product/${_id}`}>
-          <Card.Img src={image} variant="top" />
-        </a>
+        <Card.Img src={image} variant="top" />
       </Link>
 
       <Card.Body>
