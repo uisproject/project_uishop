@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -27,12 +28,10 @@ const productSlice = createSlice({
       state.isLoading = true;
     },
     [getProductList.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.products = payload;
       state.isLoading = false;
     },
     [getProductList.rejected]: (state, { payload }) => {
-      console.log(payload);
       state.isLoading = false;
       state.error = payload;
     },
