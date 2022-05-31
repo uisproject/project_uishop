@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import { errorNotFound, errorHandler } from "./services/errorHandler.js";
+import { errorNotFound, errorHandler } from "./services/errorMiddleware.js";
 
 // to use env
 dotenv.config();
