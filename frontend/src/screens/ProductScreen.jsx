@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  createSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import {
   Row,
   Col,
@@ -14,7 +19,6 @@ import { getProductDetail } from "../features/productDetail";
 import Rating from "../components/Rating";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { useNavigate } from "react-router-dom";
 
 const ProductScreen = () => {
   const { id } = useParams();
@@ -36,7 +40,12 @@ const ProductScreen = () => {
   }, [id, dispatch]);
 
   const addToCartHandler = () => {
-    navigate(`/cart/${id}?qty=${qty}`);
+    navigate({
+      pathname: `/cart/${id}`,
+      search: createSearchParams({
+        qty,
+      }).toString(),
+    });
   };
 
   return (
