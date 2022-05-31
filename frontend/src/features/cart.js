@@ -18,7 +18,8 @@ export const addToCart = createAsyncThunk(
     const itemData = {
       productId: data._id,
       name: data.name,
-      image: data.price,
+      image: data.image,
+      price: data.price,
       countInStock: data.countInStock,
       qty,
     };
@@ -44,7 +45,14 @@ export const addToCart = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    removeItem: (state, { payload }) => {
+      state.cartItems = payload;
+
+      // renew the localStore
+      localStorage.setItem("cartItems", JSON.stringify(payload));
+    },
+  },
   extraReducers: {
     [addToCart.fulfilled]: (state, { payload }) => {
       state.cartItems = payload;
@@ -55,6 +63,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { cartAddItem } = cartSlice.actions;
+export const { removeItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
