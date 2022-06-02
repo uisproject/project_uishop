@@ -45,7 +45,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Register a bew yser
+// @desc    Register a new user
 // @route   POST /api/user/
 // @access  Public
 
@@ -71,6 +71,38 @@ export const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400);
+    throw new Error(e.message);
+  }
+});
+
+// @desc    Update User
+// @route   PUT /api/user/
+// @access  Public
+
+export const updateProfile = asyncHandler(async (req, res) => {
+  let { id } = req.user;
+  const user = await User.findById(id);
+
+  try {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
       token: generateToken(user._id),
     });
   } catch (e) {

@@ -22,7 +22,7 @@ const RegisterScreen = () => {
   const { userInfo } = useSelector(({ user }) => user);
   const redirect = location.search ? location.search.split("=")[1] : "/";
   useEffect(() => {
-    if (userInfo) return navigate("/");
+    if (userInfo) return navigate(redirect);
   }, [userInfo, redirect]);
 
   const submitHandler = (e) => {
